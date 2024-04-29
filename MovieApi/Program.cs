@@ -55,6 +55,7 @@ public class Program
                 };
             });
         });
+        
 
         builder.Services.AddSwaggerExamplesFromAssemblyOf<Program>();
 
