@@ -21,9 +21,7 @@
     <Folder Include="Db\" />
     <Folder Include="Helper\" />
     <Folder Include="Mapper\" />
-    <Folder Include="Service\IService\" />
     <Folder Include="Settings\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

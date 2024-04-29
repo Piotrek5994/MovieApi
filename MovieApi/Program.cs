@@ -1,3 +1,7 @@
+using Core.IRepositories;
+using Infrastracture.Repositories;
+using Infrastracture.Service;
+using Infrastracture.Service.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -25,8 +29,10 @@ public class Program
         builder.Services.AddControllers();
 
         //Service 
+        builder.Services.AddScoped<IAuthService, AuthService>();
 
         //Repository
+        builder.Services.AddScoped<IAuthRepositories, AuthRepositories>();
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
