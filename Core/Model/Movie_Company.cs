@@ -8,4 +8,6 @@ namespace Core.Model;
 
 public class Movie_Company
 {
+    public int Movie_id { get; set; } //FK
+    public int Compnay_id { get; set; } //FK
 }
