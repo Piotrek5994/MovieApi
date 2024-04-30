@@ -1,8 +1,10 @@
 using Core.IRepositories;
+using Infrastracture.Db;
 using Infrastracture.Repositories;
 using Infrastracture.Service;
 using Infrastracture.Service.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -22,6 +24,9 @@ public class Program
         builder.Logging.SetMinimumLevel(LogLevel.Information);
 
         // Add services to the container.
+        var connectionString = builder.Configuration.GetConnectionString("localDb");
+        builder.Services.AddDbContext<MySqlDbContext>(options =>
+        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
         //AutoMapper
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
