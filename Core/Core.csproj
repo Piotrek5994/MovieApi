@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Command\" />
     <Folder Include="Filter\" />
-    <Folder Include="Model\" />
     <Folder Include="ModelDto\" />
   </ItemGroup>
 
