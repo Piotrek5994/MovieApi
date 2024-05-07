@@ -37,9 +37,9 @@ public class MySqlDbContext : DbContext
 
         modelBuilder.Entity<Movie_User>(entity =>
         {
-            entity.HasKey(u => u.User_id);
+            entity.HasKey(mu => mu.User_id);
 
-            entity.HasMany(u => u.Movie)
+            entity.HasMany(mu => mu.Movie)
                   .WithOne(m => m.User)
                   .HasForeignKey(m => m.Movie_id);
         });
@@ -47,6 +47,10 @@ public class MySqlDbContext : DbContext
         modelBuilder.Entity<Movie>(entity =>
         {
             entity.HasKey(m => m.Movie_id);
+
+            entity.HasOne(m => m.User)
+                  .WithMany(mu => mu.Movie)
+                  .HasForeignKey(m => m.Movie_id);
         });
 
         modelBuilder.Entity<Movie_Company>(entity =>

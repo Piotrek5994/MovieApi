@@ -10,4 +10,5 @@ public class Production_Company
 {
     public int Company_id { get; set; }
     public string Company_name { get; set; }
+    public Production_Company ProductionCompany { get; set; }
 }

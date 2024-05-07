@@ -25,5 +25,7 @@ public class Movie
     public string Movie_src_video { get; set; }
     public int User_id { get; set; }
     public Movie_User User { get; set; }
-    
+    public Movie_Company MovieCompany { get; set; }
+    public Movie_Cast MovieCast { get; set; }
+    public Movie_Crew MovieCrew { get; set; }
 }

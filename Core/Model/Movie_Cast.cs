@@ -13,4 +13,7 @@ public class Movie_Cast
     public string Character_name { get; set; }
     public int Gender_id { get; set; }
     public int Cast_order { get; set; }
+    public List<Movie> Movies { get; set; }
+    public List<Gender> Genders { get; set; }
+    public List<Person> Persons { get; set; }
 }
