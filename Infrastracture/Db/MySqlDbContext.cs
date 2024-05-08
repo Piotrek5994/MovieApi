@@ -63,6 +63,22 @@ public class MySqlDbContext : DbContext
             entity.HasOne(m => m.MovieCrew)
                   .WithMany(mc => mc.Movie)
                   .HasForeignKey(m => m.Movie_id);
+
+            entity.HasOne(m => m.ProductionCountry)
+                  .WithMany(pc => pc.Movies)
+                  .HasForeignKey(m => m.ProductionCountry);
+
+            entity.HasOne(m => m.MovieLanguages)
+                  .WithMany(ml => ml.Movies)
+                  .HasForeignKey(m => m.MovieLanguages);
+
+            entity.HasOne(m => m.MovieGenre)
+                  .WithMany(mg => mg.Movies)
+                  .HasForeignKey(m => m.MovieGenre);
+
+            entity.HasOne(m => m.MovieKeywords)
+                  .WithMany(mk => mk.Movies)
+                  .HasForeignKey(m => m.MovieKeywords);
         });
 
         modelBuilder.Entity<Movie_Company>(entity =>
@@ -155,11 +171,23 @@ public class MySqlDbContext : DbContext
         modelBuilder.Entity<Production_Country>(entity =>
         {
             entity.HasKey(pc => new { pc.Movie_id, pc.Country_id });
+
+            entity.HasMany(pc => pc.Movies)
+                  .WithOne(m => m.ProductionCountry)
+                  .HasForeignKey(pc => pc.Movie_id);
+
+            entity.HasMany(pc => pc.Countries)
+                  .WithOne(c => c.ProductionCountry)
+                  .HasForeignKey(pc => pc.Country_id);
         });
 
         modelBuilder.Entity<Country>(entity =>
         {
             entity.HasKey(c => c.Country_id);
+
+            entity.HasOne(c => c.ProductionCountry)
+                  .WithMany(pc => pc.Countries)
+                  .HasForeignKey(c => c.Country_id);
         });
 
         modelBuilder.Entity<Movie_Languages>(entity =>
