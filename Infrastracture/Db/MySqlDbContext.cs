@@ -1,10 +1,12 @@
 ﻿using Core.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastracture.Db;
 
 public class MySqlDbContext : DbContext
 {
+    private readonly IConfiguration _configuration;
     public DbSet<Movie> movies { get; set; }
     public DbSet<Movie_Company> movieCompanies { get; set; }
     public DbSet<Movie_Cast> movieCasts { get; set; }
@@ -23,14 +25,18 @@ public class MySqlDbContext : DbContext
     public DbSet<Genre> genres { get; set; }
     public DbSet<Keyword> keywords { get; set; }
     public DbSet<Movie_User> users { get; set; }
-    public MySqlDbContext(DbContextOptions<MySqlDbContext> options) : base(options)
+    public MySqlDbContext(DbContextOptions<MySqlDbContext> options, IConfiguration configuration) : base(options)
     {
-
+        _configuration = configuration;
     }
-    //protected override void OnConfiguring(DbContextOptionsBuilder options)
-    //{
-    //    options.UseSqlite("Data Source= C:\\Users\\piotr\\Desktop\\Projekty C#\\BookMvc\\book.db");
-    //}
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            var connectionString = _configuration.GetConnectionString("localDb");
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+        }
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
