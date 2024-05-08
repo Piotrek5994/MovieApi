@@ -7,6 +7,6 @@ public class Movie_Crew
     public int Department_id { get; set; }
     public string Job { get; set; } = string.Empty;
     public Movie? Movie { get; set; }
-    public Person? Persons { get; set; }
-    public Department? Departments { get; set; }
+    public Person? Person { get; set; }
+    public Department? Department { get; set; }
 }

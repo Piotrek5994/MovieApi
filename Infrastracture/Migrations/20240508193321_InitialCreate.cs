@@ -15,7 +15,7 @@ namespace Infrastracture.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "countries",
+                name: "Country",
                 columns: table => new
                 {
                     Country_id = table.Column<int>(type: "int", nullable: false)
@@ -27,12 +27,12 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_countries", x => x.Country_id);
+                    table.PrimaryKey("PK_Country", x => x.Country_id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "departments",
+                name: "Department",
                 columns: table => new
                 {
                     Department_id = table.Column<int>(type: "int", nullable: false)
@@ -42,12 +42,12 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_departments", x => x.Department_id);
+                    table.PrimaryKey("PK_Department", x => x.Department_id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "genders",
+                name: "Gender",
                 columns: table => new
                 {
                     Gender_id = table.Column<int>(type: "int", nullable: false)
@@ -57,12 +57,12 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_genders", x => x.Gender_id);
+                    table.PrimaryKey("PK_Gender", x => x.Gender_id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "genres",
+                name: "Genre",
                 columns: table => new
                 {
                     Genre_id = table.Column<int>(type: "int", nullable: false)
@@ -72,12 +72,12 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_genres", x => x.Genre_id);
+                    table.PrimaryKey("PK_Genre", x => x.Genre_id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "keywords",
+                name: "Keyword",
                 columns: table => new
                 {
                     Keyword_id = table.Column<int>(type: "int", nullable: false)
@@ -87,12 +87,12 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_keywords", x => x.Keyword_id);
+                    table.PrimaryKey("PK_Keyword", x => x.Keyword_id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "languages",
+                name: "Language",
                 columns: table => new
                 {
                     Language_id = table.Column<int>(type: "int", nullable: false)
@@ -104,12 +104,12 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_languages", x => x.Language_id);
+                    table.PrimaryKey("PK_Language", x => x.Language_id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "languagesRoles",
+                name: "Language_Role",
                 columns: table => new
                 {
                     Role_id = table.Column<int>(type: "int", nullable: false)
@@ -119,42 +119,12 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_languagesRoles", x => x.Role_id);
+                    table.PrimaryKey("PK_Language_Role", x => x.Role_id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "persons",
-                columns: table => new
-                {
-                    Person_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Person_name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_persons", x => x.Person_id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "productionCompanies",
-                columns: table => new
-                {
-                    Company_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Company_name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_productionCompanies", x => x.Company_id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "users",
+                name: "Movie_User",
                 columns: table => new
                 {
                     User_id = table.Column<int>(type: "int", nullable: false)
@@ -174,15 +144,46 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.User_id);
+                    table.PrimaryKey("PK_Movie_User", x => x.User_id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "movies",
+                name: "Person",
                 columns: table => new
                 {
-                    Movie_id = table.Column<int>(type: "int", nullable: false),
+                    Person_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Person_name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Person", x => x.Person_id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Production_Company",
+                columns: table => new
+                {
+                    Company_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Company_name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Production_Company", x => x.Company_id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Movie",
+                columns: table => new
+                {
+                    Movie_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Budget = table.Column<int>(type: "int", nullable: false),
@@ -210,18 +211,18 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_movies", x => x.Movie_id);
+                    table.PrimaryKey("PK_Movie", x => x.Movie_id);
                     table.ForeignKey(
-                        name: "FK_movies_users_Movie_id",
-                        column: x => x.Movie_id,
-                        principalTable: "users",
+                        name: "FK_Movie_Movie_User_User_id",
+                        column: x => x.User_id,
+                        principalTable: "Movie_User",
                         principalColumn: "User_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "movieCasts",
+                name: "Movie_Cast",
                 columns: table => new
                 {
                     Movie_id = table.Column<int>(type: "int", nullable: false),
@@ -233,30 +234,30 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_movieCasts", x => new { x.Movie_id, x.Gender_id, x.Person_id });
+                    table.PrimaryKey("PK_Movie_Cast", x => new { x.Movie_id, x.Gender_id, x.Person_id });
                     table.ForeignKey(
-                        name: "FK_movieCasts_genders_Gender_id",
+                        name: "FK_Movie_Cast_Gender_Gender_id",
                         column: x => x.Gender_id,
-                        principalTable: "genders",
+                        principalTable: "Gender",
                         principalColumn: "Gender_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_movieCasts_movies_Movie_id",
+                        name: "FK_Movie_Cast_Movie_Movie_id",
                         column: x => x.Movie_id,
-                        principalTable: "movies",
+                        principalTable: "Movie",
                         principalColumn: "Movie_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_movieCasts_persons_Person_id",
+                        name: "FK_Movie_Cast_Person_Person_id",
                         column: x => x.Person_id,
-                        principalTable: "persons",
+                        principalTable: "Person",
                         principalColumn: "Person_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "movieCompanies",
+                name: "Movie_Company",
                 columns: table => new
                 {
                     Movie_id = table.Column<int>(type: "int", nullable: false),
@@ -264,24 +265,24 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_movieCompanies", x => new { x.Movie_id, x.Company_id });
+                    table.PrimaryKey("PK_Movie_Company", x => new { x.Movie_id, x.Company_id });
                     table.ForeignKey(
-                        name: "FK_movieCompanies_movies_Movie_id",
+                        name: "FK_Movie_Company_Movie_Movie_id",
                         column: x => x.Movie_id,
-                        principalTable: "movies",
+                        principalTable: "Movie",
                         principalColumn: "Movie_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_movieCompanies_productionCompanies_Company_id",
+                        name: "FK_Movie_Company_Production_Company_Company_id",
                         column: x => x.Company_id,
-                        principalTable: "productionCompanies",
+                        principalTable: "Production_Company",
                         principalColumn: "Company_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "movieCrews",
+                name: "Movie_Crew",
                 columns: table => new
                 {
                     Movie_id = table.Column<int>(type: "int", nullable: false),
@@ -292,30 +293,30 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_movieCrews", x => new { x.Person_id, x.Movie_id, x.Department_id });
+                    table.PrimaryKey("PK_Movie_Crew", x => new { x.Person_id, x.Movie_id, x.Department_id });
                     table.ForeignKey(
-                        name: "FK_movieCrews_departments_Department_id",
+                        name: "FK_Movie_Crew_Department_Department_id",
                         column: x => x.Department_id,
-                        principalTable: "departments",
+                        principalTable: "Department",
                         principalColumn: "Department_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_movieCrews_movies_Movie_id",
+                        name: "FK_Movie_Crew_Movie_Movie_id",
                         column: x => x.Movie_id,
-                        principalTable: "movies",
+                        principalTable: "Movie",
                         principalColumn: "Movie_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_movieCrews_persons_Person_id",
+                        name: "FK_Movie_Crew_Person_Person_id",
                         column: x => x.Person_id,
-                        principalTable: "persons",
+                        principalTable: "Person",
                         principalColumn: "Person_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "movieGenres",
+                name: "Movie_Genre",
                 columns: table => new
                 {
                     Movie_id = table.Column<int>(type: "int", nullable: false),
@@ -323,24 +324,24 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_movieGenres", x => new { x.Movie_id, x.Genre_id });
+                    table.PrimaryKey("PK_Movie_Genre", x => new { x.Movie_id, x.Genre_id });
                     table.ForeignKey(
-                        name: "FK_movieGenres_genres_Genre_id",
+                        name: "FK_Movie_Genre_Genre_Genre_id",
                         column: x => x.Genre_id,
-                        principalTable: "genres",
+                        principalTable: "Genre",
                         principalColumn: "Genre_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_movieGenres_movies_Movie_id",
+                        name: "FK_Movie_Genre_Movie_Movie_id",
                         column: x => x.Movie_id,
-                        principalTable: "movies",
+                        principalTable: "Movie",
                         principalColumn: "Movie_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "movieKeywords",
+                name: "Movie_Keywords",
                 columns: table => new
                 {
                     Movie_Id = table.Column<int>(type: "int", nullable: false),
@@ -348,24 +349,24 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_movieKeywords", x => new { x.Movie_Id, x.Keyword_Id });
+                    table.PrimaryKey("PK_Movie_Keywords", x => new { x.Movie_Id, x.Keyword_Id });
                     table.ForeignKey(
-                        name: "FK_movieKeywords_keywords_Keyword_Id",
+                        name: "FK_Movie_Keywords_Keyword_Keyword_Id",
                         column: x => x.Keyword_Id,
-                        principalTable: "keywords",
+                        principalTable: "Keyword",
                         principalColumn: "Keyword_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_movieKeywords_movies_Movie_Id",
+                        name: "FK_Movie_Keywords_Movie_Movie_Id",
                         column: x => x.Movie_Id,
-                        principalTable: "movies",
+                        principalTable: "Movie",
                         principalColumn: "Movie_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "movieLanguages",
+                name: "Movie_Languages",
                 columns: table => new
                 {
                     Movie_id = table.Column<int>(type: "int", nullable: false),
@@ -374,30 +375,30 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_movieLanguages", x => new { x.Movie_id, x.Language_id, x.Language_Role_id });
+                    table.PrimaryKey("PK_Movie_Languages", x => new { x.Movie_id, x.Language_id, x.Language_Role_id });
                     table.ForeignKey(
-                        name: "FK_movieLanguages_languagesRoles_Language_Role_id",
-                        column: x => x.Language_Role_id,
-                        principalTable: "languagesRoles",
-                        principalColumn: "Role_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_movieLanguages_languages_Language_id",
+                        name: "FK_Movie_Languages_Language_Language_id",
                         column: x => x.Language_id,
-                        principalTable: "languages",
+                        principalTable: "Language",
                         principalColumn: "Language_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_movieLanguages_movies_Movie_id",
+                        name: "FK_Movie_Languages_Language_Role_Language_Role_id",
+                        column: x => x.Language_Role_id,
+                        principalTable: "Language_Role",
+                        principalColumn: "Role_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Movie_Languages_Movie_Movie_id",
                         column: x => x.Movie_id,
-                        principalTable: "movies",
+                        principalTable: "Movie",
                         principalColumn: "Movie_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "productionCountries",
+                name: "Production_Country",
                 columns: table => new
                 {
                     Movie_id = table.Column<int>(type: "int", nullable: false),
@@ -405,70 +406,75 @@ namespace Infrastracture.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_productionCountries", x => new { x.Movie_id, x.Country_id });
+                    table.PrimaryKey("PK_Production_Country", x => new { x.Movie_id, x.Country_id });
                     table.ForeignKey(
-                        name: "FK_productionCountries_countries_Country_id",
+                        name: "FK_Production_Country_Country_Country_id",
                         column: x => x.Country_id,
-                        principalTable: "countries",
+                        principalTable: "Country",
                         principalColumn: "Country_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_productionCountries_movies_Movie_id",
+                        name: "FK_Production_Country_Movie_Movie_id",
                         column: x => x.Movie_id,
-                        principalTable: "movies",
+                        principalTable: "Movie",
                         principalColumn: "Movie_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_movieCasts_Gender_id",
-                table: "movieCasts",
+                name: "IX_Movie_User_id",
+                table: "Movie",
+                column: "User_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Movie_Cast_Gender_id",
+                table: "Movie_Cast",
                 column: "Gender_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_movieCasts_Person_id",
-                table: "movieCasts",
+                name: "IX_Movie_Cast_Person_id",
+                table: "Movie_Cast",
                 column: "Person_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_movieCompanies_Company_id",
-                table: "movieCompanies",
+                name: "IX_Movie_Company_Company_id",
+                table: "Movie_Company",
                 column: "Company_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_movieCrews_Department_id",
-                table: "movieCrews",
+                name: "IX_Movie_Crew_Department_id",
+                table: "Movie_Crew",
                 column: "Department_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_movieCrews_Movie_id",
-                table: "movieCrews",
+                name: "IX_Movie_Crew_Movie_id",
+                table: "Movie_Crew",
                 column: "Movie_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_movieGenres_Genre_id",
-                table: "movieGenres",
+                name: "IX_Movie_Genre_Genre_id",
+                table: "Movie_Genre",
                 column: "Genre_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_movieKeywords_Keyword_Id",
-                table: "movieKeywords",
+                name: "IX_Movie_Keywords_Keyword_Id",
+                table: "Movie_Keywords",
                 column: "Keyword_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_movieLanguages_Language_id",
-                table: "movieLanguages",
+                name: "IX_Movie_Languages_Language_id",
+                table: "Movie_Languages",
                 column: "Language_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_movieLanguages_Language_Role_id",
-                table: "movieLanguages",
+                name: "IX_Movie_Languages_Language_Role_id",
+                table: "Movie_Languages",
                 column: "Language_Role_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_productionCountries_Country_id",
-                table: "productionCountries",
+                name: "IX_Production_Country_Country_id",
+                table: "Production_Country",
                 column: "Country_id");
         }
 
@@ -476,58 +482,58 @@ namespace Infrastracture.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "movieCasts");
+                name: "Movie_Cast");
 
             migrationBuilder.DropTable(
-                name: "movieCompanies");
+                name: "Movie_Company");
 
             migrationBuilder.DropTable(
-                name: "movieCrews");
+                name: "Movie_Crew");
 
             migrationBuilder.DropTable(
-                name: "movieGenres");
+                name: "Movie_Genre");
 
             migrationBuilder.DropTable(
-                name: "movieKeywords");
+                name: "Movie_Keywords");
 
             migrationBuilder.DropTable(
-                name: "movieLanguages");
+                name: "Movie_Languages");
 
             migrationBuilder.DropTable(
-                name: "productionCountries");
+                name: "Production_Country");
 
             migrationBuilder.DropTable(
-                name: "genders");
+                name: "Gender");
 
             migrationBuilder.DropTable(
-                name: "productionCompanies");
+                name: "Production_Company");
 
             migrationBuilder.DropTable(
-                name: "departments");
+                name: "Department");
 
             migrationBuilder.DropTable(
-                name: "persons");
+                name: "Person");
 
             migrationBuilder.DropTable(
-                name: "genres");
+                name: "Genre");
 
             migrationBuilder.DropTable(
-                name: "keywords");
+                name: "Keyword");
 
             migrationBuilder.DropTable(
-                name: "languagesRoles");
+                name: "Language");
 
             migrationBuilder.DropTable(
-                name: "languages");
+                name: "Language_Role");
 
             migrationBuilder.DropTable(
-                name: "countries");
+                name: "Country");
 
             migrationBuilder.DropTable(
-                name: "movies");
+                name: "Movie");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "Movie_User");
         }
     }
 }

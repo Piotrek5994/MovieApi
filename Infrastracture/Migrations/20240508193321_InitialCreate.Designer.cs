@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastracture.Migrations
 {
     [DbContext(typeof(MySqlDbContext))]
-    [Migration("20240508183548_InitialCreate")]
+    [Migration("20240508193321_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -42,7 +42,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Country_id");
 
-                    b.ToTable("countries");
+                    b.ToTable("Country", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Department", b =>
@@ -59,7 +59,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Department_id");
 
-                    b.ToTable("departments");
+                    b.ToTable("Department", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Gender", b =>
@@ -76,7 +76,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Gender_id");
 
-                    b.ToTable("genders");
+                    b.ToTable("Gender", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Genre", b =>
@@ -93,7 +93,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Genre_id");
 
-                    b.ToTable("genres");
+                    b.ToTable("Genre", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Keyword", b =>
@@ -110,7 +110,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Keyword_id");
 
-                    b.ToTable("keywords");
+                    b.ToTable("Keyword", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Language", b =>
@@ -131,7 +131,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Language_id");
 
-                    b.ToTable("languages");
+                    b.ToTable("Language", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Language_Role", b =>
@@ -148,13 +148,16 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Role_id");
 
-                    b.ToTable("languagesRoles");
+                    b.ToTable("Language_Role", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Movie", b =>
                 {
                     b.Property<int>("Movie_id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Movie_id"));
 
                     b.Property<int>("Budget")
                         .HasColumnType("int");
@@ -212,7 +215,9 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Movie_id");
 
-                    b.ToTable("movies");
+                    b.HasIndex("User_id");
+
+                    b.ToTable("Movie", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Cast", b =>
@@ -239,7 +244,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("Person_id");
 
-                    b.ToTable("movieCasts");
+                    b.ToTable("Movie_Cast", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Company", b =>
@@ -254,7 +259,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("Company_id");
 
-                    b.ToTable("movieCompanies");
+                    b.ToTable("Movie_Company", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Crew", b =>
@@ -278,7 +283,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("Movie_id");
 
-                    b.ToTable("movieCrews");
+                    b.ToTable("Movie_Crew", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Genre", b =>
@@ -293,7 +298,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("Genre_id");
 
-                    b.ToTable("movieGenres");
+                    b.ToTable("Movie_Genre", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Keywords", b =>
@@ -308,7 +313,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("Keyword_Id");
 
-                    b.ToTable("movieKeywords");
+                    b.ToTable("Movie_Keywords", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Languages", b =>
@@ -328,7 +333,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("Language_id");
 
-                    b.ToTable("movieLanguages");
+                    b.ToTable("Movie_Languages", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Movie_User", b =>
@@ -365,7 +370,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("User_id");
 
-                    b.ToTable("users");
+                    b.ToTable("Movie_User", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Person", b =>
@@ -382,7 +387,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Person_id");
 
-                    b.ToTable("persons");
+                    b.ToTable("Person", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Production_Company", b =>
@@ -399,7 +404,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Company_id");
 
-                    b.ToTable("productionCompanies");
+                    b.ToTable("Production_Company", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Production_Country", b =>
@@ -414,14 +419,14 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("Country_id");
 
-                    b.ToTable("productionCountries");
+                    b.ToTable("Production_Country", (string)null);
                 });
 
             modelBuilder.Entity("Core.Model.Movie", b =>
                 {
                     b.HasOne("Core.Model.Movie_User", "User")
                         .WithMany("Movie")
-                        .HasForeignKey("Movie_id")
+                        .HasForeignKey("User_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -430,29 +435,29 @@ namespace Infrastracture.Migrations
 
             modelBuilder.Entity("Core.Model.Movie_Cast", b =>
                 {
-                    b.HasOne("Core.Model.Gender", "Genders")
+                    b.HasOne("Core.Model.Gender", "Gender")
                         .WithMany("MovieCast")
                         .HasForeignKey("Gender_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Model.Movie", "Movies")
+                    b.HasOne("Core.Model.Movie", "Movie")
                         .WithMany("MovieCast")
                         .HasForeignKey("Movie_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Model.Person", "Persons")
+                    b.HasOne("Core.Model.Person", "Person")
                         .WithMany("MovieCast")
                         .HasForeignKey("Person_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Genders");
+                    b.Navigation("Gender");
 
-                    b.Navigation("Movies");
+                    b.Navigation("Movie");
 
-                    b.Navigation("Persons");
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Company", b =>
@@ -463,20 +468,20 @@ namespace Infrastracture.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Model.Movie", "Movies")
+                    b.HasOne("Core.Model.Movie", "Movie")
                         .WithMany("MovieCompany")
                         .HasForeignKey("Movie_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Movies");
+                    b.Navigation("Movie");
 
                     b.Navigation("ProductionCompany");
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Crew", b =>
                 {
-                    b.HasOne("Core.Model.Department", "Departments")
+                    b.HasOne("Core.Model.Department", "Department")
                         .WithMany("MovieCrew")
                         .HasForeignKey("Department_id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -488,101 +493,101 @@ namespace Infrastracture.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Model.Person", "Persons")
+                    b.HasOne("Core.Model.Person", "Person")
                         .WithMany("MovieCrew")
                         .HasForeignKey("Person_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Departments");
+                    b.Navigation("Department");
 
                     b.Navigation("Movie");
 
-                    b.Navigation("Persons");
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Genre", b =>
                 {
-                    b.HasOne("Core.Model.Genre", "Genres")
+                    b.HasOne("Core.Model.Genre", "Genre")
                         .WithMany("MovieGenre")
                         .HasForeignKey("Genre_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Model.Movie", "Movies")
+                    b.HasOne("Core.Model.Movie", "Movie")
                         .WithMany("MovieGenre")
                         .HasForeignKey("Movie_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Genres");
+                    b.Navigation("Genre");
 
-                    b.Navigation("Movies");
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Keywords", b =>
                 {
-                    b.HasOne("Core.Model.Keyword", "Keywords")
+                    b.HasOne("Core.Model.Keyword", "Keyword")
                         .WithMany("MovieKeywords")
                         .HasForeignKey("Keyword_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Model.Movie", "Movies")
+                    b.HasOne("Core.Model.Movie", "Movie")
                         .WithMany("MovieKeywords")
                         .HasForeignKey("Movie_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Keywords");
+                    b.Navigation("Keyword");
 
-                    b.Navigation("Movies");
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Core.Model.Movie_Languages", b =>
                 {
-                    b.HasOne("Core.Model.Language_Role", "LanguageRoles")
+                    b.HasOne("Core.Model.Language_Role", "LanguageRole")
                         .WithMany("MovieLanguages")
                         .HasForeignKey("Language_Role_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Model.Language", "Languages")
+                    b.HasOne("Core.Model.Language", "Language")
                         .WithMany("MovieLanguages")
                         .HasForeignKey("Language_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Model.Movie", "Movies")
+                    b.HasOne("Core.Model.Movie", "Movie")
                         .WithMany("MovieLanguages")
                         .HasForeignKey("Movie_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("LanguageRoles");
+                    b.Navigation("Language");
 
-                    b.Navigation("Languages");
+                    b.Navigation("LanguageRole");
 
-                    b.Navigation("Movies");
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Core.Model.Production_Country", b =>
                 {
-                    b.HasOne("Core.Model.Country", "Countries")
+                    b.HasOne("Core.Model.Country", "Countrie")
                         .WithMany("ProductionCountry")
                         .HasForeignKey("Country_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Model.Movie", "Movies")
+                    b.HasOne("Core.Model.Movie", "Movie")
                         .WithMany("ProductionCountry")
                         .HasForeignKey("Movie_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Countries");
+                    b.Navigation("Countrie");
 
-                    b.Navigation("Movies");
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Core.Model.Country", b =>

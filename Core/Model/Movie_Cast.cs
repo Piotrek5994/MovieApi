@@ -7,7 +7,7 @@ public class Movie_Cast
     public string Character_name { get; set; } = string.Empty;
     public int Gender_id { get; set; }
     public int Cast_order { get; set; }
-    public Movie? Movies { get; set; }
-    public Gender? Genders { get; set; }
-    public Person? Persons { get; set; }
+    public Movie? Movie { get; set; }
+    public Gender? Gender { get; set; }
+    public Person? Person { get; set; }
 }
