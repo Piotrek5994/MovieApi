@@ -228,21 +228,45 @@ public class MySqlDbContext : DbContext
         modelBuilder.Entity<Movie_Genre>(entity =>
         {
             entity.HasKey(mg => new { mg.Movie_id, mg.Genre_id });
+
+            entity.HasMany(mg => mg.Movies)
+                  .WithOne(m => m.MovieGenre)
+                  .HasForeignKey(m => m.Movie_id);
+
+            entity.HasMany(mg => mg.Genres)
+                  .WithOne(g => g.MovieGenre)
+                  .HasForeignKey(g => g.Genre_id);
         });
 
         modelBuilder.Entity<Genre>(entity =>
         {
             entity.HasKey(g => g.Genre_id);
+
+            entity.HasOne(g => g.MovieGenre)
+                  .WithMany(mg => mg.Genres)
+                  .HasForeignKey(g => g.Genre_id);
         });
 
         modelBuilder.Entity<Movie_Keywords>(entity =>
         {
             entity.HasKey(mk => new { mk.Movie_Id, mk.Keyword_Id });
+
+            entity.HasMany(mk => mk.Movies)
+                  .WithOne(m => m.MovieKeywords)
+                  .HasForeignKey(m => m.Movie_id);
+
+            entity.HasMany(mk => mk.Keywords)
+                  .WithOne(k => k.MovieKeywords)
+                  .HasForeignKey(k => k.Keyword_id);
         });
 
         modelBuilder.Entity<Keyword>(entity =>
         {
             entity.HasKey(k => k.Keyword_id);
+
+            entity.HasOne(k => k.MovieKeywords)
+                  .WithMany(mk => mk.Keywords)
+                  .HasForeignKey(k => k.Keyword_id);
         });
     }
 }
