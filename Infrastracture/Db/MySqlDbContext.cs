@@ -146,6 +146,10 @@ public class MySqlDbContext : DbContext
         modelBuilder.Entity<Department>(entity =>
         {
             entity.HasKey(d => d.Department_id);
+
+            entity.HasOne(d => d.MovieCrew)
+                  .WithMany(mc => mc.Departments)
+                  .HasForeignKey(d => d.Department_id);
         });
 
         modelBuilder.Entity<Production_Country>(entity =>
