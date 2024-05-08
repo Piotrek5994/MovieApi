@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.Model;
+﻿namespace Core.Model;
 
 public class Movie
 {
@@ -28,4 +22,8 @@ public class Movie
     public Movie_Company MovieCompany { get; set; }
     public Movie_Cast MovieCast { get; set; }
     public Movie_Crew MovieCrew { get; set; }
+    public Production_Country ProductionCountry { get; set; }
+    public Movie_Languages MovieLanguages { get; set; }
+    public Movie_Genre MovieGenre { get; set; }
+    public Movie_Keywords MovieKeywords { get; set; }
 }

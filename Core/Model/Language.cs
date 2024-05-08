@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.Model;
+﻿namespace Core.Model;
 
 public class Language
 {
     public int Language_id { get; set; }
     public string Language_code { get; set; }
-    public string Language_name { get; set;}
+    public string Language_name { get; set; }
 }

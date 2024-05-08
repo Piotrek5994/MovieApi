@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.Model;
+﻿namespace Core.Model;
 
 public class Movie_Crew
 {
@@ -14,5 +8,5 @@ public class Movie_Crew
     public string Job { get; set; }
     public List<Movie> Movie { get; set; }
     public List<Person> Persons { get; set; }
-    public List<Department> Departments { get; set;}
+    public List<Department> Departments { get; set; }
 }
