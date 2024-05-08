@@ -6,7 +6,6 @@ namespace Infrastracture.Db;
 
 public class MySqlDbContext : DbContext
 {
-    private readonly IConfiguration _configuration;
     public DbSet<Movie> movies { get; set; }
     public DbSet<Movie_Company> movieCompanies { get; set; }
     public DbSet<Movie_Cast> movieCasts { get; set; }
@@ -25,15 +24,14 @@ public class MySqlDbContext : DbContext
     public DbSet<Genre> genres { get; set; }
     public DbSet<Keyword> keywords { get; set; }
     public DbSet<Movie_User> users { get; set; }
-    public MySqlDbContext(DbContextOptions<MySqlDbContext> options, IConfiguration configuration) : base(options)
-    {
-        _configuration = configuration;
-    }
+    //public MySqlDbContext(DbContextOptions<MySqlDbContext> options) : base(options)
+    //{
+    //}
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
         {
-            var connectionString = _configuration.GetConnectionString("localDb");
+            var connectionString = "server=localhost;database=movies;User=root;Password=";
             optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
     }
@@ -58,45 +56,45 @@ public class MySqlDbContext : DbContext
                   .WithMany(u => u.Movie)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasOne(m => m.MovieCompany)
-                  .WithMany(mc => mc.Movies)
+            entity.HasMany(m => m.MovieCompany)
+                  .WithOne(mc => mc.Movies)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasOne(m => m.MovieCast)
-                  .WithMany(mc => mc.Movies)
+            entity.HasMany(m => m.MovieCast)
+                  .WithOne(mc => mc.Movies)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasOne(m => m.MovieCrew)
-                  .WithMany(mc => mc.Movie)
+            entity.HasMany(m => m.MovieCrew)
+                  .WithOne(mc => mc.Movie)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasOne(m => m.ProductionCountry)
-                  .WithMany(pc => pc.Movies)
-                  .HasForeignKey(m => m.ProductionCountry);
+            entity.HasMany(m => m.ProductionCountry)
+                  .WithOne(pc => pc.Movies)
+                  .HasForeignKey(m => m.Movie_id);
 
-            entity.HasOne(m => m.MovieLanguages)
-                  .WithMany(ml => ml.Movies)
-                  .HasForeignKey(m => m.MovieLanguages);
+            entity.HasMany(m => m.MovieLanguages)
+                  .WithOne(ml => ml.Movies)
+                  .HasForeignKey(m => m.Movie_id);
 
-            entity.HasOne(m => m.MovieGenre)
-                  .WithMany(mg => mg.Movies)
-                  .HasForeignKey(m => m.MovieGenre);
+            entity.HasMany(m => m.MovieGenre)
+                  .WithOne(mg => mg.Movies)
+                  .HasForeignKey(m => m.Movie_id);
 
-            entity.HasOne(m => m.MovieKeywords)
-                  .WithMany(mk => mk.Movies)
-                  .HasForeignKey(m => m.MovieKeywords);
+            entity.HasMany(m => m.MovieKeywords)
+                  .WithOne(mk => mk.Movies)
+                  .HasForeignKey(m => m.Movie_Id);
         });
 
         modelBuilder.Entity<Movie_Company>(entity =>
         {
             entity.HasKey(mc => new { mc.Movie_id, mc.Company_id });
 
-            entity.HasMany(mc => mc.Movies)
-                  .WithOne(m => m.MovieCompany)
+            entity.HasOne(mc => mc.Movies)
+                  .WithMany(m => m.MovieCompany)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasMany(mc => mc.ProductionCompany)
-                  .WithOne(pc => pc.MovieCompany)
+            entity.HasOne(mc => mc.ProductionCompany)
+                  .WithMany(pc => pc.MovieCompany)
                   .HasForeignKey(pc => pc.Company_id);
         });
 
@@ -104,8 +102,8 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(pc => pc.Company_id);
 
-            entity.HasOne(pc => pc.MovieCompany)
-                  .WithMany(mc => mc.ProductionCompany)
+            entity.HasMany(pc => pc.MovieCompany)
+                  .WithOne(mc => mc.ProductionCompany)
                   .HasForeignKey(pc => pc.Company_id);
         });
 
@@ -113,16 +111,16 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(mc => new { mc.Movie_id, mc.Gender_id, mc.Person_id });
 
-            entity.HasMany(mc => mc.Movies)
-                  .WithOne(m => m.MovieCast)
+            entity.HasOne(mc => mc.Movies)
+                  .WithMany(m => m.MovieCast)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasMany(mc => mc.Genders)
-                  .WithOne(g => g.MovieCast)
+            entity.HasOne(mc => mc.Genders)
+                  .WithMany(g => g.MovieCast)
                   .HasForeignKey(g => g.Gender_id);
 
-            entity.HasMany(mc => mc.Persons)
-                  .WithOne(p => p.MovieCast)
+            entity.HasOne(mc => mc.Persons)
+                  .WithMany(p => p.MovieCast)
                   .HasForeignKey(p => p.Person_id);
         });
 
@@ -130,8 +128,8 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(g => g.Gender_id);
 
-            entity.HasOne(g => g.MovieCast)
-                  .WithMany(mc => mc.Genders)
+            entity.HasMany(g => g.MovieCast)
+                  .WithOne(mc => mc.Genders)
                   .HasForeignKey(g => g.Gender_id);
         });
 
@@ -139,12 +137,12 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(p => p.Person_id);
 
-            entity.HasOne(p => p.MovieCast)
-                  .WithMany(mc => mc.Persons)
+            entity.HasMany(p => p.MovieCast)
+                  .WithOne(mc => mc.Persons)
                   .HasForeignKey(p => p.Person_id);
 
-            entity.HasOne(p => p.MovieCrew)
-                  .WithMany(mc => mc.Persons)
+            entity.HasMany(p => p.MovieCrew)
+                  .WithOne(mc => mc.Persons)
                   .HasForeignKey(p =>p.Person_id);
         });
 
@@ -152,16 +150,16 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(mc => new { mc.Person_id, mc.Movie_id, mc.Department_id });
 
-            entity.HasMany(mc => mc.Movie)
-                  .WithOne(m => m.MovieCrew)
+            entity.HasOne(mc => mc.Movie)
+                  .WithMany(m => m.MovieCrew)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasMany(mc => mc.Persons)
-                  .WithOne(p => p.MovieCrew)
+            entity.HasOne(mc => mc.Persons)
+                  .WithMany(p => p.MovieCrew)
                   .HasForeignKey(p => p.Person_id);
 
-            entity.HasMany(mc => mc.Departments)
-                  .WithOne(d => d.MovieCrew)
+            entity.HasOne(mc => mc.Departments)
+                  .WithMany(d => d.MovieCrew)
                   .HasForeignKey(d => d.Department_id);
         });
 
@@ -169,8 +167,8 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(d => d.Department_id);
 
-            entity.HasOne(d => d.MovieCrew)
-                  .WithMany(mc => mc.Departments)
+            entity.HasMany(d => d.MovieCrew)
+                  .WithOne(mc => mc.Departments)
                   .HasForeignKey(d => d.Department_id);
         });
 
@@ -178,12 +176,12 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(pc => new { pc.Movie_id, pc.Country_id });
 
-            entity.HasMany(pc => pc.Movies)
-                  .WithOne(m => m.ProductionCountry)
+            entity.HasOne(pc => pc.Movies)
+                  .WithMany(m => m.ProductionCountry)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasMany(pc => pc.Countries)
-                  .WithOne(c => c.ProductionCountry)
+            entity.HasOne(pc => pc.Countries)
+                  .WithMany(c => c.ProductionCountry)
                   .HasForeignKey(c => c.Country_id);
         });
 
@@ -191,8 +189,8 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(c => c.Country_id);
 
-            entity.HasOne(c => c.ProductionCountry)
-                  .WithMany(pc => pc.Countries)
+            entity.HasMany(c => c.ProductionCountry)
+                  .WithOne(pc => pc.Countries)
                   .HasForeignKey(c => c.Country_id);
         });
 
@@ -200,25 +198,25 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(ml => new { ml.Movie_id, ml.Language_id, ml.Language_Role_id });
 
-            entity.HasMany(ml => ml.Movies)
-                  .WithOne(m => m.MovieLanguages)
+            entity.HasOne(ml => ml.Movies)
+                  .WithMany(m => m.MovieLanguages)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasMany(ml => ml.Languages)
-                  .WithOne(l => l.MovieLanguages)
+            entity.HasOne(ml => ml.Languages)
+                  .WithMany(l => l.MovieLanguages)
                   .HasForeignKey(l => l.Language_id);
 
-            entity.HasMany(ml => ml.LanguageRoles)
-                  .WithOne(lr => lr.MovieLanguages)
-                  .HasForeignKey(lr => lr.Role_id);
+            entity.HasOne(ml => ml.LanguageRoles)
+                  .WithMany(lr => lr.MovieLanguages)
+                  .HasForeignKey(ml => ml.Language_Role_id);;
         });
 
         modelBuilder.Entity<Language>(entity =>
         {
             entity.HasKey(l => l.Language_id);
 
-            entity.HasOne(l => l.MovieLanguages)
-                  .WithMany(ml => ml.Languages)
+            entity.HasMany(l => l.MovieLanguages)
+                  .WithOne(ml => ml.Languages)
                   .HasForeignKey(l => l.Language_id);
         });
 
@@ -226,21 +224,21 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(lr => lr.Role_id);
 
-            entity.HasOne(lr => lr.MovieLanguages)
-                  .WithMany(ml => ml.LanguageRoles)
-                  .HasForeignKey(lr => lr.Role_id);
+            entity.HasMany(lr => lr.MovieLanguages)
+                  .WithOne(ml => ml.LanguageRoles)
+                  .HasForeignKey(ml => ml.Language_Role_id);
         });
 
         modelBuilder.Entity<Movie_Genre>(entity =>
         {
             entity.HasKey(mg => new { mg.Movie_id, mg.Genre_id });
 
-            entity.HasMany(mg => mg.Movies)
-                  .WithOne(m => m.MovieGenre)
+            entity.HasOne(mg => mg.Movies)
+                  .WithMany(m => m.MovieGenre)
                   .HasForeignKey(m => m.Movie_id);
 
-            entity.HasMany(mg => mg.Genres)
-                  .WithOne(g => g.MovieGenre)
+            entity.HasOne(mg => mg.Genres)
+                  .WithMany(g => g.MovieGenre)
                   .HasForeignKey(g => g.Genre_id);
         });
 
@@ -248,8 +246,8 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(g => g.Genre_id);
 
-            entity.HasOne(g => g.MovieGenre)
-                  .WithMany(mg => mg.Genres)
+            entity.HasMany(g => g.MovieGenre)
+                  .WithOne(mg => mg.Genres)
                   .HasForeignKey(g => g.Genre_id);
         });
 
@@ -257,22 +255,22 @@ public class MySqlDbContext : DbContext
         {
             entity.HasKey(mk => new { mk.Movie_Id, mk.Keyword_Id });
 
-            entity.HasMany(mk => mk.Movies)
-                  .WithOne(m => m.MovieKeywords)
-                  .HasForeignKey(m => m.Movie_id);
+            entity.HasOne(mk => mk.Movies)
+                  .WithMany(m => m.MovieKeywords)
+                  .HasForeignKey(m => m.Movie_Id);
 
-            entity.HasMany(mk => mk.Keywords)
-                  .WithOne(k => k.MovieKeywords)
-                  .HasForeignKey(k => k.Keyword_id);
+            entity.HasOne(mk => mk.Keywords)
+                  .WithMany(k => k.MovieKeywords)
+                  .HasForeignKey(k => k.Keyword_Id);
         });
 
         modelBuilder.Entity<Keyword>(entity =>
         {
             entity.HasKey(k => k.Keyword_id);
 
-            entity.HasOne(k => k.MovieKeywords)
-                  .WithMany(mk => mk.Keywords)
-                  .HasForeignKey(k => k.Keyword_id);
+            entity.HasMany(k => k.MovieKeywords)
+                  .WithOne(mk => mk.Keywords)
+                  .HasForeignKey(k => k.Keyword_Id);
         });
     }
 }

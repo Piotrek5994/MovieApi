@@ -19,11 +19,11 @@ public class Movie
     public string Movie_src_video { get; set; } = string.Empty;
     public int User_id { get; set; }
     public Movie_User? User { get; set; }
-    public Movie_Company? MovieCompany { get; set; }
-    public Movie_Cast? MovieCast { get; set; }
-    public Movie_Crew? MovieCrew { get; set; }
-    public Production_Country? ProductionCountry { get; set; }
-    public Movie_Languages? MovieLanguages { get; set; }
-    public Movie_Genre? MovieGenre { get; set; }
-    public Movie_Keywords? MovieKeywords { get; set; }
+    public List<Movie_Company>? MovieCompany { get; set; }
+    public List<Movie_Cast>? MovieCast { get; set; }
+    public List<Movie_Crew>? MovieCrew { get; set; }
+    public List<Production_Country>? ProductionCountry { get; set; }
+    public List<Movie_Languages>? MovieLanguages { get; set; }
+    public List<Movie_Genre>? MovieGenre { get; set; }
+    public List<Movie_Keywords>? MovieKeywords { get; set; }
 }

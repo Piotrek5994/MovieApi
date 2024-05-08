@@ -5,5 +5,5 @@ public class Country
     public int Country_id { get; set; } // PK
     public string Country_iso_code { get; set; } = string.Empty;
     public string Country_name { get; set; } = string.Empty;
-    public Production_Country? ProductionCountry { get; set; }
+    public List<Production_Country>? ProductionCountry { get; set; }
 }
