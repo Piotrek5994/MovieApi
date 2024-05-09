@@ -1,5 +1,7 @@
-﻿namespace Infrastracture.Service;
+﻿using Infrastracture.Service.IService;
 
-public class GenderService
+namespace Infrastracture.Service;
+
+public class GenderService : IGenderService
 {
 }

@@ -35,10 +35,43 @@ public class Program
 
         //Service 
         builder.Services.AddScoped<IAuthService, AuthService>();
+        builder.Services.AddScoped<ICountryService, CountryService>();
+        builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+        builder.Services.AddScoped<IGenderService, GenderService>();
+        builder.Services.AddScoped<IKeywordService, KeywordService>();
+        builder.Services.AddScoped<ILanguageService, LanguageService>();
+        builder.Services.AddScoped<ILanguageRoleService, LanguageRoleService>();
+        builder.Services.AddScoped<IMovieCastService, MovieCastService>();
+        builder.Services.AddScoped<IMovieCompanyService, MovieCompanyService>();
+        builder.Services.AddScoped<IMovieCrewService , MovieCrewService>();
+        builder.Services.AddScoped<IMovieGenreService, MovieGenreService>();
+        builder.Services.AddScoped<IMovieKeywordsService, MovieKeywordsService>();
+        builder.Services.AddScoped<IMovieLanguagesService, MovieLanguagesService>();
+        builder.Services.AddScoped<IPersonService, PersonService>();
+        builder.Services.AddScoped<IProductionCompanyService, ProductionCompanyService>();
+        builder.Services.AddScoped<IProductionCountryService, ProductionCountryService>();
+        builder.Services.AddScoped<IUserService, UserService>();
 
         //Repository
         builder.Services.AddScoped<IAuthRepositories, AuthRepositories>();
+        builder.Services.AddScoped<ICountryRepositories, CountryRepositories>();
+        builder.Services.AddScoped<IDepartmentRepositories, DepartmentRepositories>();
+        builder.Services.AddScoped<IGenderRepositories, GenderRepositories>();
+        builder.Services.AddScoped<IKeywordRepositories, KeywordRepositories>();
+        builder.Services.AddScoped<ILanguageRepositories, LanguageRepositories>();
+        builder.Services.AddScoped<ILanguageRoleRepositories, LanguageRoleRepositories>();
+        builder.Services.AddScoped<IMovieCastRepositories, MovieCastRepositories>();
+        builder.Services.AddScoped<IMovieCompanyRepositories, MovieCompanyRepositories>();
+        builder.Services.AddScoped<IMovieCrewRepositories, MovieCrewRepositories>();
+        builder.Services.AddScoped<IMovieGenreRepositories, MovieGenreRepositories>();
+        builder.Services.AddScoped<IMovieKeywordsRepositories, MovieKeywordsRepositories>();
+        builder.Services.AddScoped<IMovieLanguagesRepositories, MovieLanguagesRepositories>();
+        builder.Services.AddScoped<IPersonRepositories, PersonRepositories>();
+        builder.Services.AddScoped<IProductionCompanyRepositories, ProductionCompanyRepositories>();
+        builder.Services.AddScoped<IProductionCountryRepositories, ProductionCountryRepositories>();
+        builder.Services.AddScoped<IUserRepositories, UserRepositories>();
 
+        //Swagger 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
         {
