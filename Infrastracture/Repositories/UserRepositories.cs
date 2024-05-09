@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Infrastracture.Db;
+using Microsoft.Extensions.Logging;
 
-namespace Infrastracture.Repositories
+namespace Infrastracture.Repositories;
+
+public class UserRepositories : IUserRepositories
 {
-    public class UserRepositories
+    private readonly MySqlDbContext _context;
+    private readonly ILogger _log;
+
+    public UserRepositories(MySqlDbContext context, ILogger<UserRepositories> log)
     {
+        _context = context;
+        _log = log;
     }
 }

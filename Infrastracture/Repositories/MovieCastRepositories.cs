@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Infrastracture.Db;
+using Microsoft.Extensions.Logging;
 
-namespace Infrastracture.Repositories
+namespace Infrastracture.Repositories;
+
+public class MovieCastRepositories : IMovieCastRepositories
 {
-    public class MovieCastRepositories
+    private readonly MySqlDbContext _context;
+    private readonly ILogger _log;
+
+    public MovieCastRepositories(MySqlDbContext context, ILogger<MovieCastRepositories> log)
     {
+        _context = context;
+        _log = log;
     }
 }
