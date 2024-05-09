@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 
-namespace Infrastracture.Mapper
+namespace Infrastracture.Mapper;
+
+public class GetMapper : Profile
 {
-    public class GetMapper : Profile
+    public GetMapper()
     {
-        public GetMapper()
-        {
-           
-        }
+       
     }
 }
