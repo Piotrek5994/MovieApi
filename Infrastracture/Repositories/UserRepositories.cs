@@ -19,7 +19,7 @@ public class UserRepositories : IUserRepositories
     }
     public async Task<List<Movie_User>> Get(UserFilter filter)
     {
-        var query =  _context.users.AsQueryable();
+        IQueryable<Movie_User> query =  _context.users.AsQueryable();
 
         //Filters
         if (filter.Id != null)
