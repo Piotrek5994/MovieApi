@@ -20,6 +20,10 @@ public class UserController : ControllerBase
     public async Task<ActionResult<List<Movie_User>>> Get([FromQuery] UserFilter filter)
     {
         List<Movie_User> result = await _userService.Get(filter);
+        if (result.Count <= 0)
+        {
+            return NotFound();
+        }
         return Ok(result);
     }
 }
