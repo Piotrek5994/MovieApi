@@ -54,8 +54,8 @@ public class UserRepositories : IUserRepositories
         try
         {
             await _context.users.AddAsync(user);
-            int createResult = await _context.SaveChangesAsync().ConfigureAwait(false);
-            return createResult;
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+            return user.User_id;
         }
         catch (SqlException ex)
         {
@@ -69,12 +69,18 @@ public class UserRepositories : IUserRepositories
         try
         {
             Movie_User? existingUser = await _context.users.FindAsync(userId);
-            if (existingUser is null)
+            var properties = typeof(Movie_User).GetProperties();
+            foreach (var property in properties)
             {
-                return false;
+                if (property.PropertyType == typeof(string))
+                {
+                    string newValue = (string)property.GetValue(user);
+                    if (!string.IsNullOrEmpty(newValue))
+                    {
+                        property.SetValue(existingUser, newValue);
+                    }
+                }
             }
-
-            _context.Entry(existingUser).CurrentValues.SetValues(user);
             await _context.SaveChangesAsync();
             return true;
         }
