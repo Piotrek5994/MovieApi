@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.CommandDto;
 using Core.Filter;
 using Core.Model;
 using Infrastracture.Repositories;
@@ -20,5 +21,11 @@ public class UserService : IUserService
     {
         List<Movie_User> result = await _userRepositories.Get(filter);
         return result;
+    }
+    public async Task<int> Post(Create_Movie_User_Dto userdto)
+    {
+        Movie_User mappedUser = _mapper.Map<Create_Movie_User_Dto,Movie_User>(userdto);
+        int createUserDto = await _userRepositories.CreateUser(mappedUser);
+        return createUserDto;
     }
 }

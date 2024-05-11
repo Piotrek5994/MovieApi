@@ -30,5 +30,15 @@ public class Mapper : Profile
                     src.User_phone = dest.Phone;
                     src.User_role = dest.Role;
                 });
+        CreateMap<Create_Movie_User_Dto, Movie_User>()
+              .AfterMap((src, dest) =>
+              {
+                  src.Name = dest.User_name;
+                  src.Last_name = dest.User_last_name;
+                  src.Email = dest.User_email;
+                  src.Password = dest.User_password;
+                  src.Phone = dest.User_phone;
+                  src.Role = dest.User_role;
+              });
     }
 }
