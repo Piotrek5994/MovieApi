@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Core.CommandDto
         public string Tagline { get; set; } = string.Empty;
         public decimal Vote_average { get; set; }
         public int Vote_count { get; set; }
+        [Required]
         public int User_id { get; set; }
     }
 }
