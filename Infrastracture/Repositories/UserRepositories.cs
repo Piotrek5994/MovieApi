@@ -2,6 +2,7 @@
 using Core.Model;
 using Infrastracture.Db;
 using Infrastracture.Helper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -19,24 +20,87 @@ public class UserRepositories : IUserRepositories
     }
     public async Task<List<Movie_User>> Get(UserFilter filter)
     {
-        IQueryable<Movie_User> query =  _context.users.AsQueryable();
-
-        //Filters
-        if (filter.Id != null)
+        try
         {
-            query = query.Where(x => x.User_id.Equals(filter.Id));
+
+            IQueryable<Movie_User> query = _context.users.AsQueryable();
+
+            //Filters
+            if (filter.Id != null)
+            {
+                query = query.Where(x => x.User_id.Equals(filter.Id));
+            }
+
+            //Sort
+            if (!string.IsNullOrEmpty(filter.SortBy))
+            {
+                query = SortHelper.ApplyDynamicSorting(query, filter.SortBy, filter.SortDirection);
+            }
+
+            //Pagination
+            query = query.Skip((filter.page - 1) * filter.limit).Take(filter.limit);
+
+            var result = await query.ToListAsync().ConfigureAwait(false);
+            return result;
+        }
+        catch (SqlException ex)
+        {
+            _log.LogError(ex, $"Error get user in MySql : Message - {ex.Message}");
+            return new List<Movie_User>();
+        }
+    }
+    public async Task<int> CreateUser(Movie_User user)
+    {
+        try
+        {
+            await _context.users.AddAsync(user);
+            int createResult = await _context.SaveChangesAsync().ConfigureAwait(false);
+            return createResult;
+        }
+        catch (SqlException ex)
+        {
+            _log.LogError(ex, $"Error creating user in MySql : Message - {ex.Message}");
+            return 0;
         }
 
-        //Sort
-        if(!string.IsNullOrEmpty(filter.SortBy))
+    }
+    public async Task<bool> UpdateUser(Movie_User user,int userId)
+    {
+        try
         {
-            query = SortHelper.ApplyDynamicSorting(query,filter.SortBy,filter.SortDirection);
+            Movie_User? existingUser = await _context.users.FindAsync(userId);
+            if (existingUser is null)
+            {
+                return false;
+            }
+
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
+            await _context.SaveChangesAsync();
+            return true;
         }
-
-        //Pagination
-        query = query.Skip((filter.page-1) * filter.limit).Take(filter.limit);
-
-        var result = await query.ToListAsync().ConfigureAwait(false);
-        return result;
+        catch (SqlException ex)
+        {
+            _log.LogError(ex, $"Error updating user in MySql : Message - {ex.Message}");
+            return false;
+        }
+    }
+    public async Task<bool> DeleteUser(int userId)
+    {
+        try
+        {
+            Movie_User? existingUser = await _context.users.FindAsync(userId);
+            if (existingUser is null)
+            {
+                return false;
+            }
+            _context.users.Remove(existingUser);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (SqlException ex)
+        {
+            _log.LogError(ex, $"Error delete user in MySql : Message - {ex.Message}");
+            return false;
+        }
     }
 }
