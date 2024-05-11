@@ -43,6 +43,7 @@ public class Program
         builder.Services.AddScoped<ILanguageRoleService, LanguageRoleService>();
         builder.Services.AddScoped<IMovieCastService, MovieCastService>();
         builder.Services.AddScoped<IMovieCompanyService, MovieCompanyService>();
+        builder.Services.AddScoped<IMovieService, MovieService>();
         builder.Services.AddScoped<IMovieCrewService , MovieCrewService>();
         builder.Services.AddScoped<IMovieGenreService, MovieGenreService>();
         builder.Services.AddScoped<IMovieKeywordsService, MovieKeywordsService>();
@@ -62,6 +63,7 @@ public class Program
         builder.Services.AddScoped<ILanguageRoleRepositories, LanguageRoleRepositories>();
         builder.Services.AddScoped<IMovieCastRepositories, MovieCastRepositories>();
         builder.Services.AddScoped<IMovieCompanyRepositories, MovieCompanyRepositories>();
+        builder.Services.AddScoped<IMovieRepositories, MovieRepositories>();
         builder.Services.AddScoped<IMovieCrewRepositories, MovieCrewRepositories>();
         builder.Services.AddScoped<IMovieGenreRepositories, MovieGenreRepositories>();
         builder.Services.AddScoped<IMovieKeywordsRepositories, MovieKeywordsRepositories>();
