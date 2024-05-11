@@ -39,7 +39,7 @@ public class MovieRepositories : IMovieRepositories
             }
 
             //Pagination
-            query = query.Skip((filter.page - 1) * filter.limit).Take(filter.limit);
+            query = query.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit);
 
             var result = await query.ToListAsync().ConfigureAwait(false);
             return result;
