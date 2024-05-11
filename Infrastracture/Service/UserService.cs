@@ -24,9 +24,9 @@ public class UserService : IUserService
         List<Movie_User_Dto> mappedUser = _mapper.Map<List<Movie_User_Dto>>(getUserList);
         return mappedUser;
     }
-    public async Task<int> Post(Create_Movie_User_Dto userdto)
+    public async Task<int> Post(Create_Movie_User_Dto userDto)
     {
-        Movie_User mappedUser = _mapper.Map<Movie_User>(userdto);
+        Movie_User mappedUser = _mapper.Map<Movie_User>(userDto);
         int createUserDto = await _userRepositories.CreateUser(mappedUser);
         return createUserDto;
     }

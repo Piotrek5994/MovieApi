@@ -1,6 +1,6 @@
 ﻿namespace Core.Filter;
 
-public class ProductionCompanyFilter
+public class MovieFilter
 {
     public int? Id { get; set; }
     public int Page { get; set; } = 1;

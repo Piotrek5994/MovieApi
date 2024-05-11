@@ -20,6 +20,26 @@ public class Mapper : Profile
                      dest.Phone = src.User_phone;
                      dest.Role = src.User_role;
                  });
+        CreateMap<Movie, Movie_Dto>()
+                  .AfterMap((src, dest) =>
+                  {
+                      dest.Id = src.Movie_id;
+                      dest.Title = src.Title;
+                      dest.Budget = src.Budget;
+                      dest.Homepage = src.Homepage;
+                      dest.Overview = src.Overview;
+                      dest.Popularity = src.Popularity;
+                      dest.Release_date = src.Release_date;
+                      dest.Revenue = src.Revenue;
+                      dest.Runtime = src.Runtime;
+                      dest.Status = src.Movie_status;
+                      dest.Tagline = src.Tagline;
+                      dest.Vote_average = src.Vote_average;
+                      dest.Vote_count = src.Vote_count;
+                      dest.Src_foto = src.Movie_src_foto;
+                      dest.Src_video = src.Movie_src_video;
+                      dest.User_id = src.User_id;
+                  });
         CreateMap<Create_Movie_User_Dto, Movie_User>()
                   .AfterMap((src, dest) =>
                   {
@@ -29,6 +49,23 @@ public class Mapper : Profile
                       dest.User_password = src.Password;
                       dest.User_phone = src.Phone;
                       dest.User_role = src.Role;
+                  });
+        CreateMap<Create_Movie_Dto, Movie>()
+                  .AfterMap((src, dest) =>
+                  {
+                      dest.Title = src.Title;
+                      dest.Budget = src.Budget;
+                      dest.Homepage = src.Homepage;
+                      dest.Overview = src.Overview;
+                      dest.Popularity = src.Popularity;
+                      dest.Release_date = src.Release_date;
+                      dest.Revenue = src.Revenue;
+                      dest.Runtime = src.Runtime;
+                      dest.Movie_status = src.Status;
+                      dest.Tagline = src.Tagline;
+                      dest.Vote_average = src.Vote_average;
+                      dest.Vote_count = src.Vote_count;
+                      dest.User_id = src.User_id;
                   });
     }
 }
