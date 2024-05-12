@@ -5,6 +5,7 @@ using Infrastracture.Helper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace Infrastracture.Repositories;
 
@@ -50,7 +51,7 @@ public class ProductionCompanyRepositories : IProductionCompanyRepositories
 
         }
     }
-    public async Task<int> CreateUser(Production_Company productionCompany)
+    public async Task<int> CreateProductionCompany(Production_Company productionCompany)
     {
         try
         {
@@ -65,13 +66,13 @@ public class ProductionCompanyRepositories : IProductionCompanyRepositories
         }
 
     }
-    public async Task<bool> UpdateUser(Production_Company productionCompany, int productionCompanyId)
+    public async Task<bool> UpdateProductionCompany(Production_Company productionCompany, int productionCompanyId)
     {
         try
         {
             Production_Company? existingProductionCompany = await _context.productionCompanies.FindAsync(productionCompanyId);
-            var properties = typeof(Production_Company).GetProperties();
-            foreach (var property in properties)
+            PropertyInfo[] properties = typeof(Production_Company).GetProperties();
+            foreach (PropertyInfo property in properties)
             {
                 if (property.PropertyType == typeof(string))
                 {
@@ -92,7 +93,7 @@ public class ProductionCompanyRepositories : IProductionCompanyRepositories
             return false;
         }
     }
-    public async Task<bool> DeleteUser(int productionCompanyId)
+    public async Task<bool> DeleteProductionCompany(int productionCompanyId)
     {
         try
         {

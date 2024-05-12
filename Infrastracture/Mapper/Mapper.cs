@@ -40,6 +40,13 @@ public class Mapper : Profile
                       dest.Src_video = src.Movie_src_video;
                       dest.User_id = src.User_id;
                   });
+        CreateMap<Movie_Company, Movie_Company_Dto>();
+        CreateMap<Production_Company, Production_Company_Dto>()
+                   .AfterMap((src, dest) =>
+                   {
+                       dest.Id = src.Company_id;
+                       dest.Company_name = src.Company_name;
+                   });
         CreateMap<Create_Movie_User_Dto, Movie_User>()
                   .AfterMap((src, dest) =>
                   {
@@ -66,6 +73,12 @@ public class Mapper : Profile
                       dest.Vote_average = src.Vote_average;
                       dest.Vote_count = src.Vote_count;
                       dest.User_id = src.User_id;
+                  });
+        CreateMap<Create_Movie_Company_Dto, Movie_Company>();
+        CreateMap<Create_Production_Company_Dto, Production_Company>()
+                  .AfterMap((src, dest) =>
+                  {
+                      dest.Company_name = src.Company_name;
                   });
     }
 }

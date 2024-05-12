@@ -5,6 +5,7 @@ using Infrastracture.Helper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace Infrastracture.Repositories;
 
@@ -53,7 +54,7 @@ public class MovieCompanyRepositories : IMovieCompanyRepositories
             return new List<Movie_Company>();
         }
     }
-    public async Task<int> CreateUser(Movie_Company movieCompany)
+    public async Task<int> CreateMovieCompany(Movie_Company movieCompany)
     {
         try
         {
@@ -68,13 +69,13 @@ public class MovieCompanyRepositories : IMovieCompanyRepositories
         }
 
     }
-    public async Task<bool> UpdateUser(Movie_Company movieCompany, int movieComapnyId)
+    public async Task<bool> UpdateMovieCompany(Movie_Company movieCompany, int movieComapnyId)
     {
         try
         {
             Movie_Company? existingMovieCompany = await _context.movieCompanies.FindAsync(movieComapnyId);
-            var properties = typeof(Movie_Company).GetProperties();
-            foreach (var property in properties)
+            PropertyInfo[] properties = typeof(Movie_Company).GetProperties();
+            foreach (PropertyInfo property in properties)
             {
                 if(property.PropertyType == typeof(int))
                 {
@@ -95,7 +96,7 @@ public class MovieCompanyRepositories : IMovieCompanyRepositories
             return false;
         }
     }
-    public async Task<bool> DeleteUser(int movieCompanyId)
+    public async Task<bool> DeleteMovieCompany(int movieCompanyId)
     {
         try
         {

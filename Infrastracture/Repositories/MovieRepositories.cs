@@ -70,7 +70,7 @@ public class MovieRepositories : IMovieRepositories
         {
             Movie? existingMovie = await _context.movies.FindAsync(movie);
             PropertyInfo [] properties = typeof(Movie).GetProperties();
-            foreach (var property in properties)
+            foreach (PropertyInfo property in properties)
             {
                 if (property.PropertyType == typeof(int))
                 {
