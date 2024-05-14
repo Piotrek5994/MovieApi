@@ -24,21 +24,15 @@ public class MovieCompanyService : IMovieCompanyService
         List<Movie_Company_Dto> mappedMovieCompanies = _mapper.Map<List<Movie_Company_Dto>>(getMovieCompanies);
         return mappedMovieCompanies;
     }
-    public async Task<int> Post(Create_Movie_Company_Dto movieCompanyDto)
+    public async Task<bool> Post(Create_Movie_Company_Dto movieCompanyDto)
     {
         Movie_Company mappedMovieCompanies = _mapper.Map<Movie_Company>(movieCompanyDto);
-        int createMovieCompanies = await _movieCompanyRepositories.CreateMovieCompany(mappedMovieCompanies);
+        bool createMovieCompanies = await _movieCompanyRepositories.CreateMovieCompany(mappedMovieCompanies);
         return createMovieCompanies;
     }
-    public async Task<bool> Put(Create_Movie_Company_Dto movieCompanyDto,int movieCompanyId)
+    public async Task<bool> Delete(int movieId, int companyId)
     {
-        Movie_Company mappedMovieCompanies = _mapper.Map<Movie_Company>(movieCompanyDto);
-        bool changeMovieCompanies = await _movieCompanyRepositories.UpdateMovieCompany(mappedMovieCompanies,movieCompanyId);
-        return changeMovieCompanies;    
-    }
-    public async Task<bool> Delete(int movieCompanyId)
-    {
-        bool deleteResult = await _movieCompanyRepositories.DeleteMovieCompany(movieCompanyId);
+        bool deleteResult = await _movieCompanyRepositories.DeleteMovieCompany(movieId,companyId);
         return deleteResult;
     }
 }

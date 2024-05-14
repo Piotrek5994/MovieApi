@@ -5,7 +5,6 @@ using Infrastracture.Helper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Reflection;
 
 namespace Infrastracture.Repositories;
 
@@ -31,7 +30,7 @@ public class MovieCompanyRepositories : IMovieCompanyRepositories
             {
                 query = query.Where(x => x.Movie_id.Equals(filter.Movie_Id));
             }
-            if(filter.Company_Id != null)
+            if (filter.Company_Id != null)
             {
                 query = query.Where(x => x.Company_id.Equals(filter.Company_Id));
             }
@@ -54,54 +53,29 @@ public class MovieCompanyRepositories : IMovieCompanyRepositories
             return new List<Movie_Company>();
         }
     }
-    public async Task<int> CreateMovieCompany(Movie_Company movieCompany)
+    public async Task<bool> CreateMovieCompany(Movie_Company movieCompany)
     {
         try
         {
             await _context.movieCompanies.AddAsync(movieCompany);
             await _context.SaveChangesAsync().ConfigureAwait(false);
-            return 1;
-        }
-        catch (SqlException ex)
-        {
-            _log.LogError(ex, $"Error creating MovieCompany in MySql : Message - {ex.Message}");
-            return 0;
-        }
-
-    }
-    public async Task<bool> UpdateMovieCompany(Movie_Company movieCompany, int movieComapnyId)
-    {
-        try
-        {
-            Movie_Company? existingMovieCompany = await _context.movieCompanies.FindAsync(movieComapnyId);
-            PropertyInfo[] properties = typeof(Movie_Company).GetProperties();
-            foreach (PropertyInfo property in properties)
-            {
-                if(property.PropertyType == typeof(int))
-                {
-                    int newValue = (int)property.GetValue(movieCompany);
-                    int existingValue = (int)property.GetValue(existingMovieCompany);
-                    if (newValue != existingValue)
-                    {
-                        property.SetValue(existingMovieCompany, newValue);
-                    }
-                }
-            }
-            await _context.SaveChangesAsync();
             return true;
         }
         catch (SqlException ex)
         {
-            _log.LogError(ex, $"Error updating MovieCompany in MySql : Message - {ex.Message}");
+            _log.LogError(ex, $"Error creating MovieCompany in MySql : Message - {ex.Message}");
             return false;
         }
+
     }
-    public async Task<bool> DeleteMovieCompany(int movieCompanyId)
+    public async Task<bool> DeleteMovieCompany(int movieId, int companyId)
     {
         try
         {
-            Movie_Company? existingMovieCompany = await _context.movieCompanies.FindAsync(movieCompanyId);
-            if (existingMovieCompany is null)
+            object[] keyValues = new object[] { movieId, companyId };
+            Movie_Company? existingMovieCompany = await _context.movieCompanies.FindAsync(keyValues);
+
+            if (existingMovieCompany == null)
             {
                 return false;
             }
@@ -115,4 +89,5 @@ public class MovieCompanyRepositories : IMovieCompanyRepositories
             return false;
         }
     }
+
 }

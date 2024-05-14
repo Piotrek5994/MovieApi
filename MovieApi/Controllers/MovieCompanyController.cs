@@ -27,29 +27,19 @@ public class MovieCompanyController : ControllerBase
         return Ok(result);
     }
     [HttpPost]
-    public async Task<ActionResult<int>> Post([FromBody] Create_Movie_Company_Dto createMovieCompany)
+    public async Task<ActionResult<bool>> Post([FromBody] Create_Movie_Company_Dto createMovieCompany)
     {
-        int createMovieCompanyId = await _movieCompanyService.Post(createMovieCompany);
-        if(createMovieCompanyId == 0)
+        bool createMovieCompanyResult = await _movieCompanyService.Post(createMovieCompany);
+        if(!createMovieCompanyResult)
         {
             return BadRequest();
         }
-        return CreatedAtAction(nameof(Post), new { id = createMovieCompanyId });
-    }
-    [HttpPut]
-    public async Task<ActionResult<bool>> Put([FromBody] Create_Movie_Company_Dto createMovieCompany, int movieCompanyId)
-    {
-        bool updateResult = await _movieCompanyService.Put(createMovieCompany, movieCompanyId);
-        if(!updateResult)
-        {
-            return BadRequest();
-        }
-        return Ok(updateResult);
+        return CreatedAtAction(nameof(Post), new { Created = createMovieCompanyResult });
     }
     [HttpDelete]
-    public async Task<ActionResult<bool>> Delete([FromQuery] int movieCompanyId)
+    public async Task<ActionResult<bool>> Delete([FromQuery] int movieId, int companyId)
     {
-        bool deleteResult = await _movieCompanyService.Delete(movieCompanyId);
+        bool deleteResult = await _movieCompanyService.Delete(movieId,companyId);
         if(!deleteResult)
         {
             return BadRequest();

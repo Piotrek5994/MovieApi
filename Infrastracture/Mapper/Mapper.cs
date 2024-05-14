@@ -47,6 +47,7 @@ public class Mapper : Profile
                        dest.Id = src.Company_id;
                        dest.Company_name = src.Company_name;
                    });
+        CreateMap<Movie_Cast, Movie_Cast_Dto>();
         CreateMap<Create_Movie_User_Dto, Movie_User>()
                   .AfterMap((src, dest) =>
                   {
@@ -80,5 +81,6 @@ public class Mapper : Profile
                   {
                       dest.Company_name = src.Company_name;
                   });
+        CreateMap<Create_Movie_Cast_Dto, Movie_Cast>();
     }
 }

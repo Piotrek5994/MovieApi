@@ -6,7 +6,6 @@ namespace Infrastracture.Repositories;
 public interface IMovieCompanyRepositories
 {
     Task<List<Movie_Company>> Get(MovieCompanyFilter filter);
-    Task<int> CreateMovieCompany(Movie_Company movieCompany);
-    Task<bool> UpdateMovieCompany(Movie_Company movieCompany, int movieComapnyId);
-    Task<bool> DeleteMovieCompany(int movieCompanyId);
+    Task<bool> CreateMovieCompany(Movie_Company movieCompany);
+    Task<bool> DeleteMovieCompany(int movieId, int companyId);
 }
