@@ -18,4 +18,5 @@ public class Movie_Dto
     public string Src_foto { get; set; } = string.Empty;
     public string Src_video { get; set; } = string.Empty;
     public int User_id { get; set; }
+    public List<Movie_Company_Dto>? MovieCompany { get; set; }
 }

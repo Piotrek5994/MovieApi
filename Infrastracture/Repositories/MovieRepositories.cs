@@ -24,10 +24,14 @@ public class MovieRepositories : IMovieRepositories
     {
         try
         {
-            IQueryable<Movie> query = _context.movies.AsQueryable();
+            IQueryable<Movie> query = _context.movies
+                .Include(m => m.MovieCompany)
+                .ThenInclude(mc => mc.ProductionCompany)
+                .Where(m => m.MovieCompany.Any())
+                .AsQueryable();
 
             //Filters
-            if(filter.Id != null)
+            if (filter.Id != null)
             {
                 query = query.Where(x => x.Movie_id == filter.Id);
             }

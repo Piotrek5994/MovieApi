@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Infrastracture.Service.IService;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MovieApi.Controllers;
 
@@ -6,4 +7,10 @@ namespace MovieApi.Controllers;
 [ApiController]
 public class GenderController : ControllerBase
 {
+    private readonly IGenderService _genderService;
+
+    public GenderController(IGenderService genderService)
+    {
+        _genderService = genderService;
+    }
 }

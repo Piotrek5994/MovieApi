@@ -1,4 +1,6 @@
-﻿namespace Core.Model;
+﻿using System.Text.Json.Serialization;
+
+namespace Core.Model;
 
 public class Movie
 {
