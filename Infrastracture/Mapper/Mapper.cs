@@ -35,6 +35,7 @@ public class Mapper : Profile
         CreateMap<Movie_Crew, Movie_Crew_Dto>();
         CreateMap<Gender, Gender_Dto>();
         CreateMap<Person, Person_Dto>();
+        CreateMap<Department, Department_Dto>();
         CreateMap<Create_Movie_User_Dto, Movie_User>()
                   .AfterMap((src, dest) =>
                   {
@@ -72,5 +73,6 @@ public class Mapper : Profile
         CreateMap<Create_Movie_Crew_Dto, Movie_Crew>();
         CreateMap<Create_Gender_Dto, Gender>();
         CreateMap<Create_Person_Dto, Person>();
+        CreateMap<Create_Department_Dto, Department>();
     }
 }
