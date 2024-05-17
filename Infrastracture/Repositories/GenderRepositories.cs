@@ -114,7 +114,7 @@ public class GenderRepositories : IGenderRepositories
         }
         catch (SqlException ex)
         {
-            _log.LogError(ex, $"Error delete movie in MySql : Message - {ex.Message}");
+            _log.LogError(ex, $"Error delete gender in MySql : Message - {ex.Message}");
             return false;
         }
     }

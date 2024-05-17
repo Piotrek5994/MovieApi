@@ -24,11 +24,7 @@ public class MovieRepositories : IMovieRepositories
     {
         try
         {
-            IQueryable<Movie> query = _context.movies
-                .Include(m => m.MovieCompany)
-                .ThenInclude(mc => mc.ProductionCompany)
-                .Where(m => m.MovieCompany.Any())
-                .AsQueryable();
+            IQueryable<Movie> query = _context.movies.AsQueryable();
 
             //Filters
             if (filter.Id != null)
@@ -72,7 +68,7 @@ public class MovieRepositories : IMovieRepositories
     {
         try
         {
-            Movie? existingMovie = await _context.movies.FindAsync(movie);
+            Movie? existingMovie = await _context.movies.FindAsync(movieId);
             PropertyInfo [] properties = typeof(Movie).GetProperties();
             foreach (PropertyInfo property in properties)
             {

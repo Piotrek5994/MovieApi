@@ -1,7 +1,6 @@
 ﻿using Core.CommandDto;
 using Core.Filter;
 using Core.ModelDto;
-using Infrastracture.Service;
 using Infrastracture.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,7 +39,7 @@ public class MovieCrewController : ControllerBase
     [HttpDelete]
     public async Task<ActionResult<bool>> Delete([FromQuery] int movieId, int personId, int departmentId)
     {
-        bool deleteResult = await _movieCrewService.Delete(movieId, personId,departmentId);
+        bool deleteResult = await _movieCrewService.Delete(movieId, personId, departmentId);
         if (!deleteResult)
         {
             return BadRequest();

@@ -34,6 +34,7 @@ public class Mapper : Profile
         CreateMap<Movie_Cast, Movie_Cast_Dto>();
         CreateMap<Movie_Crew, Movie_Crew_Dto>();
         CreateMap<Gender, Gender_Dto>();
+        CreateMap<Person, Person_Dto>();
         CreateMap<Create_Movie_User_Dto, Movie_User>()
                   .AfterMap((src, dest) =>
                   {
@@ -54,14 +55,7 @@ public class Mapper : Profile
                       dest.Popularity = src.Popularity;
                       dest.Revenue = src.Revenue.ToString();
                       dest.Runtime = src.Runtime;
-                      if(dest.Movie_status.Contains("InProduction"))
-                      {
-                          src.Release_date = "null";
-                      }
-                      else
-                      {
-                        dest.Release_date = src.Release_date;
-                      }
+                      dest.Release_date = src.Release_date;
                       dest.Movie_status = src.Status;
                       dest.Tagline = src.Tagline;
                       dest.Vote_average = src.Vote_average;
@@ -77,5 +71,6 @@ public class Mapper : Profile
         CreateMap<Create_Movie_Cast_Dto, Movie_Cast>();
         CreateMap<Create_Movie_Crew_Dto, Movie_Crew>();
         CreateMap<Create_Gender_Dto, Gender>();
+        CreateMap<Create_Person_Dto, Person>();
     }
 }

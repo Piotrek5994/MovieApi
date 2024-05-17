@@ -20,7 +20,7 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Movie>>> Get([FromQuery] MovieFilter filter)
+    public async Task<ActionResult<List<Movie_Dto>>> Get([FromQuery] MovieFilter filter)
     {
         List<Movie_Dto> result = await _movieService.Get(filter);
         if (result.Count <= 0)
